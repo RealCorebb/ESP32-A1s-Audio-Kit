@@ -25,7 +25,7 @@ static AC101 ac;
 const i2s_port_t I2S_PORT = I2S_NUM_0;
 const int BLOCK_SIZE = 512;
 const double samplingFrequency = 44100;
-const uint8_t amplitude = 5000;
+const uint8_t amplitude = 2;
 
 double vReal[BLOCK_SIZE];
 double vImag[BLOCK_SIZE];
@@ -229,7 +229,7 @@ void loop() {
     //this reads 32bits as 4 chars into a 32bit INT variable
     i2s_pop_sample((i2s_port_t)i2s_num, (char*)&sampleIn, portMAX_DELAY);
     //this pushes out all the unwanted bits as we only need right channel data.
-    sampleIn >>= 14;
+    sampleIn >>= 8;
     vReal[i] = sampleIn;
     vImag[i] = 0.0; //Imaginary part must be zeroed in case of looping to avoid wrong calculations and overflows
   }
